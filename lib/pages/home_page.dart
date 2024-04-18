@@ -23,9 +23,9 @@ class _HomePageState extends State<HomePage> {
   void post() {
     if (postController.text.isNotEmpty) {
       FirebaseFirestore.instance.collection('posts').add({
-        'UserEmail':currentUser!.email,
-        'Message':postController.text,
-        'TimeStamp':Timestamp.now(),
+        'UserEmail': currentUser!.email,
+        'Message': postController.text,
+        'TimeStamp': Timestamp.now(),
       });
     }
   }
@@ -113,6 +113,9 @@ class _HomePageState extends State<HomePage> {
             ),
             Text(
               'You login as a ${currentUser!.email}',
+            ),
+            const SizedBox(
+              height: 14,
             ),
           ],
         ),

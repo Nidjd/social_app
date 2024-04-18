@@ -7,11 +7,40 @@ class PostComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Row(
-      children: [
-        Text(name),
-        Text(text),
-      ],
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 25,
+        left: 25,
+        right: 25,
+      ),
+      padding: const EdgeInsets.all(25),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Row(
+        children: [
+          Container(
+            decoration: const BoxDecoration(shape: BoxShape.circle),
+            child: const Icon(Icons.person),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: TextStyle(fontSize: 17, color: Colors.grey[600]),
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Text(text),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
