@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media/auth/registerOrLogin.dart';
 import 'package:social_media/pages/login_page.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: LoginPage(),
+      home:RegisterOrLogin(),
       debugShowCheckedModeBanner: false,
     );
   }
