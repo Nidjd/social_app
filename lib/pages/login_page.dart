@@ -17,6 +17,8 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  bool isLoading = false;
+
   @override
   void dispose() {
     emailController.dispose();
@@ -26,8 +28,13 @@ class _LoginPageState extends State<LoginPage> {
 
   void signIn() async {
     try {
+      setState(() {
+        
+      });
+      isLoading = true;
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
+      isLoading = false;
     } on FirebaseAuthException catch (e) {
       // if (e.code == 'user-not-found') {
       //   print('No user found for that email.');
@@ -35,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
       //   print('Wrong password provided for that user.');
       // }
       showMessage(e);
+      isLoading = false;
     }
   }
 
@@ -97,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 12,
                 ),
-                MyButton(
+               isLoading ? const Center(child: CircularProgressIndicator(),) : MyButton(
                   onPressed: signIn,
                   text: 'Sign In',
                 ),
