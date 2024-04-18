@@ -26,6 +26,8 @@ class _HomePageState extends State<HomePage> {
         'UserEmail': currentUser!.email,
         'Message': postController.text,
         'TimeStamp': Timestamp.now(),
+        'isLiked': false,
+        'likes': [],
       });
     }
   }
@@ -79,6 +81,8 @@ class _HomePageState extends State<HomePage> {
                         return PostComponent(
                           name: post["UserEmail"],
                           text: post["Message"],
+                          postId: post.id,
+                          likes: List<String>.from(post['likes'] ),
                         );
                       },
                       itemCount: snapshot.data!.docs.length,
