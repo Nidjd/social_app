@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:social_media/components/comment.dart';
 import 'package:social_media/components/comment_button.dart';
 import 'package:social_media/components/like_button.dart';
 
@@ -155,6 +157,33 @@ class _PostComponentState extends State<PostComponent> {
                     ],
                   ),
                 ],
+              ),
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('posts')
+                    .doc(widget.postId)
+                    .collection('comments')
+                    .orderBy('commentTime', descending: true)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: snapshot.data!.docs.map((e) {
+                        final commentData = e.data() as Map<String, dynamic>;
+                        return Comment(
+                            text: commentData['commentText'],
+                            time: commentData['commentTime'].toString(),
+                            username: commentData['commentedBy']);
+                      }).toList(),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               ),
             ],
           ),
