@@ -161,6 +161,9 @@ class _PostComponentState extends State<PostComponent> {
                     ),
                   ],
                 ),
+                const SizedBox(
+                  height: 12,
+                ),
                 StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('posts')
@@ -178,7 +181,8 @@ class _PostComponentState extends State<PostComponent> {
                           final commentData = e.data() as Map<String, dynamic>;
                           return Comment(
                               text: commentData['commentText'],
-                              time: DateFormat.yMMMEd().format(commentData['commentTime'].toDate()),
+                              time: DateFormat.yMMMEd()
+                                  .format(commentData['commentTime'].toDate()),
                               username: commentData['commentedBy']);
                         }).toList(),
                       );
