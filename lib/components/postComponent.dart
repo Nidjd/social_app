@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:social_media/components/comment.dart';
 import 'package:social_media/components/comment_button.dart';
 import 'package:social_media/components/like_button.dart';
@@ -120,72 +122,75 @@ class _PostComponentState extends State<PostComponent> {
           const SizedBox(
             width: 20,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.name,
-                style: TextStyle(fontSize: 17, color: Colors.grey[600]),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              Text(widget.text),
-              const SizedBox(
-                height: 17,
-              ),
-              Row(
-                children: [
-                  Column(
-                    children: [
-                      LikeButton(
-                        isLiked: isLiked,
-                        onTap: toggleLike,
-                      ),
-                      Text(widget.likes.length.toString())
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 14,
-                  ),
-                  Column(
-                    children: [
-                      CommentButton(
-                        onTap: showCommentDialog,
-                      ),
-                      const Text('0')
-                    ],
-                  ),
-                ],
-              ),
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('posts')
-                    .doc(widget.postId)
-                    .collection('comments')
-                    .orderBy('commentTime', descending: true)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: snapshot.data!.docs.map((e) {
-                        final commentData = e.data() as Map<String, dynamic>;
-                        return Comment(
-                            text: commentData['commentText'],
-                            time: commentData['commentTime'].toString(),
-                            username: commentData['commentedBy']);
-                      }).toList(),
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.name,
+                  style: TextStyle(fontSize: 17, color: Colors.grey[600]),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Text(widget.text),
+                const SizedBox(
+                  height: 17,
+                ),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        LikeButton(
+                          isLiked: isLiked,
+                          onTap: toggleLike,
+                        ),
+                        Text(widget.likes.length.toString())
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 14,
+                    ),
+                    Column(
+                      children: [
+                        CommentButton(
+                          onTap: showCommentDialog,
+                        ),
+                        const Text('0')
+                      ],
+                    ),
+                  ],
+                ),
+                StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('posts')
+                      .doc(widget.postId)
+                      .collection('comments')
+                      .orderBy('commentTime', descending: true)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: snapshot.data!.docs.map((e) {
+                          final commentData = e.data() as Map<String, dynamic>;
+                          return Comment(
+                              text: commentData['commentText'],
+                              time: DateFormat.yMMMEd().format(commentData['commentTime'].toDate()),
+                              username: commentData['commentedBy']);
+                        }).toList(),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),

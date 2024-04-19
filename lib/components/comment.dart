@@ -22,7 +22,7 @@ class Comment extends StatelessWidget {
           Text(text),
           Row(
             children: [
-              Text(username),
+              Text(username.split('@')[0]),
               const Text(' . '),
               Text(time),
             ],
