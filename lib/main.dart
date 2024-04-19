@@ -20,8 +20,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: AuthPage(),
+    return MaterialApp(
+      theme: ThemeData(
+          appBarTheme:
+              const AppBarTheme(iconTheme: IconThemeData(color: Colors.white))),
+      home: const AuthPage(),
       debugShowCheckedModeBanner: false,
     );
   }

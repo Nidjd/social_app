@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media/components/my_drawer.dart';
 import 'package:social_media/components/my_text_field.dart';
 import 'package:social_media/components/postComponent.dart';
 
@@ -61,6 +62,7 @@ class _HomePageState extends State<HomePage> {
               ))
         ],
       ),
+      drawer: const MyDrawer(),
       body: Center(
         child: Column(
           children: [
