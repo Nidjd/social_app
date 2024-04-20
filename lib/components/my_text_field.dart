@@ -23,14 +23,14 @@ class MyTextField extends StatelessWidget {
           ),
         ),
         hintText: hintText,
-        fillColor: Colors.grey.shade200,
+        fillColor: Theme.of(context).colorScheme.primary,
         filled: true,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             12,
           ),
-          borderSide: const BorderSide(
-            color: Colors.white,
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
         focusedBorder: OutlineInputBorder(

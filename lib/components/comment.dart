@@ -16,7 +16,7 @@ class Comment extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(5),
       ),
       child: Column(

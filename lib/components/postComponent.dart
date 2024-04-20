@@ -114,8 +114,8 @@ class _PostComponentState extends State<PostComponent> {
         right: 25,
       ),
       padding: const EdgeInsets.all(25),
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration:  BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
       ),
       child: Row(
         children: [

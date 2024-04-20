@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:social_media/auth/auth.dart';
 import 'package:social_media/auth/registerOrLogin.dart';
 import 'package:social_media/pages/login_page.dart';
+import 'package:social_media/theme/dark_theme.dart';
+import 'package:social_media/theme/light_theme.dart';
 // Import the generated file
 import 'firebase_options.dart';
 
@@ -21,9 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          appBarTheme:
-              const AppBarTheme(iconTheme: IconThemeData(color: Colors.white))),
+      theme: darkTheme,
       home: const AuthPage(),
       debugShowCheckedModeBanner: false,
     );

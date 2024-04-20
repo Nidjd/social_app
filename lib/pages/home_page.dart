@@ -42,9 +42,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.grey[900],
         centerTitle: true,
         title: const Text(
           "The Wall",
@@ -84,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                           name: post["UserEmail"],
                           text: post["Message"],
                           postId: post.id,
-                          likes: List<String>.from(post['likes'] ),
+                          likes: List<String>.from(post['likes']),
                         );
                       },
                       itemCount: snapshot.data!.docs.length,

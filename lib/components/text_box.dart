@@ -4,7 +4,11 @@ class MyTextBox extends StatelessWidget {
   final String sectionName;
   final String text;
   final void Function()? onPressed;
-  const MyTextBox({super.key, required this.sectionName, required this.text,required this.onPressed});
+  const MyTextBox(
+      {super.key,
+      required this.sectionName,
+      required this.text,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class MyTextBox extends StatelessWidget {
         bottom: 15,
       ),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(
           8,
         ),
