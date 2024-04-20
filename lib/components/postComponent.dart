@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:social_media/components/comment.dart';
 import 'package:social_media/components/comment_button.dart';
+import 'package:social_media/components/delete_button.dart';
 import 'package:social_media/components/like_button.dart';
 
 class PostComponent extends StatefulWidget {
@@ -55,6 +56,40 @@ class _PostComponentState extends State<PostComponent> {
     }
   }
 
+  void deletePost() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('delete post'),
+        content: const Text("are you sure you want to delete this post ? "),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              FirebaseFirestore.instance
+                  .collection('posts')
+                  .doc(widget.postId)
+                  .delete();
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'delete',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'cancel',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   void addComment(String commentText) async {
     FirebaseFirestore.instance
         .collection('posts')
@@ -88,16 +123,18 @@ class _PostComponentState extends State<PostComponent> {
                 Navigator.of(context).pop();
               }
             },
-            child: const Text(
+            child: Text(
               'send',
+              style: Theme.of(context).textTheme.labelLarge,
             ),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text(
+            child: Text(
               'cancel',
+              style: Theme.of(context).textTheme.labelLarge,
             ),
           )
         ],
@@ -114,14 +151,16 @@ class _PostComponentState extends State<PostComponent> {
         right: 25,
       ),
       padding: const EdgeInsets.all(25),
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          const SizedBox(
-            width: 20,
-          ),
+          // const SizedBox(
+          //   width: 20,
+          // ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,6 +235,10 @@ class _PostComponentState extends State<PostComponent> {
               ],
             ),
           ),
+          if (widget.name == currentUser!.email)
+            DeleteButton(
+              onTap: deletePost,
+            ),
         ],
       ),
     );
